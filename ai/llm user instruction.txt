@@ -1,0 +1,8 @@
+Unit Testing Rules:
+1. The maximum test scope is a class. Method calls to other external classes should be mocked.
+2. Adhere to the 3A principle: Arrange, Act, Assert. Test methods must have 3A comments.
+3. Assert phase: It is required to verify the implementation logic of the method and also that external class methods have been called.
+
+Response Rules:
+1. Use Traditional Chinese Language
+2. Use Taiwanese Terminology Preference
