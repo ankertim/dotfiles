@@ -1,0 +1,15 @@
+Unit Testing Rules:
+1. The maximum test scope is a class. Method calls to other external classes should be mocked.
+2. Adhere to the 3A principle: Arrange, Act, Assert. Test methods must have 3A comments.
+3. Assert phase: It is required to verify the implementation logic of the method and also that external class methods have been called.
+4. Before executing the `mvn test` command, please run the `mvn formatter:format` command to format the code.
+5. You only need to run the test for a single file after writing the unit test.
+
+Response Rules:
+1. Use Traditional Chinese Language
+2. Use Taiwanese Terminology Preference
+
+Executing commands in the terminal Rules:
+1. The environment is PowerShell. Therefore, all commands must adhere to PowerShell syntax.
+2. When specifying a file or folder path in a command, ensure that only the path itself is enclosed in double quotes. The rest of the command (such as the command name, options, etc.) does not need to be enclosed.
+3. Before executing any command, you must navigate to the correct directory; failure to do so will result in errors.
