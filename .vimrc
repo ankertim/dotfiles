@@ -1,25 +1,62 @@
-set encoding=utf-8
+" ==========================================
+" 基本與編碼設定
+" ==========================================
+set encoding=utf-8      " 設定 Vim 內部的字元編碼為 UTF-8，避免中文亂碼
 
-syntax on
-set number
-set backspace=2
-set shiftwidth=4
-set tabstop=4
-set expandtab
+" ==========================================
+" 介面與視覺設定
+" ==========================================
+syntax on               " 開啟語法高亮 (Syntax Highlighting)，讓程式碼有顏色
+set number              " 顯示絕對行號
+set ruler               " 在右下角顯示目前游標所在的行數與列數 (座標)
+set t_Co=256            " 告訴 Vim 終端機支援 256 色模式，讓配色主題更準確
 
-set ruler
-set smartindent
-set hlsearch
-set incsearch
-set mouse=a
-set ic
-set ai
-set history=500
+" 永遠顯示底部的狀態列
+set laststatus=2        
+
+" ==========================================
+" 編輯與操作習慣設定
+" ==========================================
+set backspace=2         " 讓退格鍵 (Backspace) 正常運作，可以刪除縮排、換行符號以及進入插入模式前的文字
+set mouse=a             " 啟用全面滑鼠支援 (a = all)，可以直接用滑鼠點擊移動游標、選取文字或滾動網頁
+set history=500         " 保留 500 筆底線命令 (冒號開頭的指令) 和搜尋的歷史紀錄
+
+" ==========================================
+" 縮排與 Tab 設定 (非常適合寫 Python/Java 等程式)
+" ==========================================
+set tabstop=4           " 設定一個 <Tab> 鍵在畫面上佔用 4 個空白字元的寬度
+set shiftwidth=4        " 設定在使用 >> 或 << 進行縮排排版時，一次移動 4 個空白
+set expandtab           " 【極度重要】將按下的 <Tab> 鍵自動轉換成對應數量的空白字元，避免不同編輯器 Tab 寬度不同的問題
+set ai                  " 開啟自動縮排 (Auto Indent)，換行時會自動對齊上一行的縮排
+set smartindent         " 開啟智慧縮排，在遇到大括號 { 時會自動往內縮排一格，適合 C/Java 語法
+
+" ==========================================
+" 搜尋設定
+" ==========================================
+set hlsearch            " 搜尋時，將所有找到的匹配文字高亮顯示 (Highlight Search)
+set incsearch           " 即時搜尋 (Incremental Search)，在輸入搜尋字串的同時游標就會跟著跳到相符的位置
+set ic                  " 搜尋時忽略大小寫 (Ignore Case)
+
+" ==========================================
+" 隱藏字元顯示設定 (除錯排版好幫手)
+" ==========================================
+" 定義隱藏字元要顯示成什麼樣子：
+" tab:>.,   代表 Tab 會顯示成 >...
+" trail:~   代表行尾的多餘空白會顯示成 ~
+" extends:> 和 precedes:< 用於當一行字太長超出螢幕時，在左右兩側顯示箭頭提示
 set listchars=tab:>.,trail:~,extends:>,precedes:<
-set list
+set list                " 開啟顯示上述的隱藏字元 (如果不想看到可以隨時打 :set nolist 關閉)
 
-let &t_SI="\e[6 q"
+" ==========================================
+" 游標形狀設定 (適用於支援游標變形的終端機，如 iTerm2, Windows Terminal)
+" ==========================================
+" 讓 Vim 在進入「插入模式 (Insert Mode)」時，游標變成一條「垂直線 (I 游標)」
+let &t_SI="\e[6 q"      
+" 讓 Vim 回到「一般模式 (Normal Mode)」時，游標變回「閃爍的方塊 (Block 游標)」
 let &t_EI="\e[1 q"
 
-set t_Co=256
-set statusline=2
+" 讓 Vim 與系統剪貼簿共用
+set clipboard+=unnamedplus
+
+" 開啟命令列的視覺化 Tab 自動補齊選單
+set wildmenu
