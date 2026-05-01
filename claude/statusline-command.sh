@@ -33,11 +33,18 @@ model_info=""
 ctx_info=""
 [ -n "$used" ] && ctx_info=$(printf "%s \033[36mctx:%.0f%%\033[0m" "$sep" "$used")
 
+# Cross-platform epoch -> formatted date (GNU date uses -d; BSD/macOS uses -r)
+fmt_epoch() {
+  epoch="$1"
+  fmt="$2"
+  [ -z "$epoch" ] && return
+  date -d "@$epoch" "+$fmt" 2>/dev/null || date -r "$epoch" "+$fmt" 2>/dev/null
+}
+
 # Rate limits
 rl_5h_info=""
 if [ -n "$rl_5h" ]; then
-  rl_5h_time=""
-  [ -n "$rl_5h_reset" ] && rl_5h_time=$(date -d "@$rl_5h_reset" "+%H:%M" 2>/dev/null)
+  rl_5h_time=$(fmt_epoch "$rl_5h_reset" "%H:%M")
   if [ -n "$rl_5h_time" ]; then
     rl_5h_info=$(printf "%s \033[33m5h:%.0f%%(%s)\033[0m" "$sep" "$rl_5h" "$rl_5h_time")
   else
@@ -47,10 +54,9 @@ fi
 
 rl_7d_info=""
 if [ -n "$rl_7d" ]; then
-  rl_7d_day=""
-  [ -n "$rl_7d_reset" ] && rl_7d_day=$(date -d "@$rl_7d_reset" "+%a" 2>/dev/null)
-  if [ -n "$rl_7d_day" ]; then
-    rl_7d_info=$(printf "%s \033[33m7d:%.0f%%(%s)\033[0m" "$sep" "$rl_7d" "$rl_7d_day")
+  rl_7d_when=$(fmt_epoch "$rl_7d_reset" "%a %H:%M")
+  if [ -n "$rl_7d_when" ]; then
+    rl_7d_info=$(printf "%s \033[33m7d:%.0f%%(%s)\033[0m" "$sep" "$rl_7d" "$rl_7d_when")
   else
     rl_7d_info=$(printf "%s \033[33m7d:%.0f%%\033[0m" "$sep" "$rl_7d")
   fi
