@@ -1,0 +1,14 @@
+1. lazygit
+2. docker
+3. dbeaver
+4. vscode
+5. IntelliJ
+6. line
+7. discord
+8. telegram
+9. slack
+10. obsidian
+11. spotify
+12. 1password
+13. onlyoffice
+14. 
