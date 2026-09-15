@@ -1,6 +1,9 @@
 {
+  "theme": "dark",
+  "tui": "fullscreen",
   "statusLine": {
     "type": "command",
-    "command": "sh /home/ankertim/.claude/statusline-command.sh"
-  }
+    "command": "sh $HOME/.claude/statusline-command.sh"
+  },
+  "hooks": {"SessionStart":[{"matcher":"*","hooks":[{"type":"command","command":"bash '$HOME/.claude/hooks/herdr-agent-state.sh' session","timeout":10}]}]}
 }
