@@ -1,0 +1,11 @@
+[Unit]
+Description=依 MPRIS 播放狀態阻止系統睡眠(例如 Spotify 播放中不睡眠)
+After=graphical-session.target
+
+[Service]
+ExecStart=%h/.local/bin/mpris-sleep-inhibit.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=graphical-session.target
