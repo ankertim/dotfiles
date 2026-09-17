@@ -1,14 +1,37 @@
-1. lazygit
-2. docker
-3. dbeaver
-4. vscode
-5. IntelliJ
-6. line
-7. discord
-8. telegram
-9. slack
-10. obsidian
-11. spotify
-12. 1password
-13. onlyoffice
-14. 
+lazygit
+docker
+dbeaver
+vscode
+IntelliJ
+line
+discord
+telegram
+slack
+obsidian
+spotify
+1password
+onlyoffice
+chrome
+firefox
+
+ghostty
+herdr
+gitkraken
+onlyoffice
+
+# pdf 檢視器
+okular
+
+# 檔案總管 
+dolphin
+## 影片縮圖
+ffmpegthumbs
+
+# 影片播放器
+mpv
+
+# 圖片檢視器 
+gwenview
+
+# 語音輸入
+vocalinux
