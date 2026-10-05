@@ -3,6 +3,7 @@ input=$(cat)
 cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd')
 model=$(echo "$input" | jq -r '.model.display_name // empty')
 used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+effort=$(echo "$input" | jq -r '.effort.level // empty')
 rl_5h=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
 rl_5h_reset=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
 rl_7d=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
@@ -29,6 +30,10 @@ sep=$(printf " \033[37m·\033[0m")
 model_info=""
 [ -n "$short_model" ] && model_info=$(printf "%s \033[92m%s\033[0m" "$sep" "$short_model")
 
+# Effort level (absent when the model doesn't support effort)
+effort_info=""
+[ -n "$effort" ] && effort_info=$(printf "%s \033[35meffort:%s\033[0m" "$sep" "$effort")
+
 # Context usage
 ctx_info=""
 [ -n "$used" ] && ctx_info=$(printf "%s \033[36mctx:%.0f%%\033[0m" "$sep" "$used")
@@ -38,7 +43,7 @@ fmt_epoch() {
   epoch="$1"
   fmt="$2"
   [ -z "$epoch" ] && return
-  date -d "@$epoch" "+$fmt" 2>/dev/null || date -r "$epoch" "+$fmt" 2>/dev/null
+  LC_ALL=C date -d "@$epoch" "+$fmt" 2>/dev/null || LC_ALL=C date -r "$epoch" "+$fmt" 2>/dev/null
 }
 
 # Rate limits
@@ -62,4 +67,4 @@ if [ -n "$rl_7d" ]; then
   fi
 fi
 
-printf "\033[96m%s\033[0m%s%s%s%s%s\n" "$short_cwd" "$git_branch" "$model_info" "$ctx_info" "$rl_5h_info" "$rl_7d_info"
+printf "\033[96m%s\033[0m%s%s%s%s%s%s\n" "$short_cwd" "$git_branch" "$model_info" "$effort_info" "$ctx_info" "$rl_5h_info" "$rl_7d_info"
