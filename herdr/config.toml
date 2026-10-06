@@ -1,0 +1,13 @@
+onboarding = false
+
+[keys]
+switch_workspace = "prefix+shift+1..9"
+next_workspace = "prefix+down"
+previous_workspace = "prefix+up"
+focus_agent = "prefix+alt+1..9"
+
+[ui.sidebar.agents]
+rows = [
+  ["$idx", "state_icon", "workspace", "tab"],
+  ["agent"],
+]
