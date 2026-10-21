@@ -120,3 +120,39 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# mise (node 等版本管理)
+eval "$(mise activate zsh)"
+
+# Strata (本機模型 IQ2_XS, IQ3_XXS, IQ3_S)
+strata-start() {
+  local dir="${STRATA_DIR:-$HOME/Repositorys/Inbox/Strata}" choice
+  local -a scripts
+  scripts=("$dir"/run-*.sh(N:t:r))
+  if (( ${#scripts} == 0 )); then echo "找不到啟動腳本"; return 1; fi
+  if curl -s --max-time 2 http://127.0.0.1:8000/health >/dev/null; then
+    echo "伺服器已在執行，請先 strata-stop"; return 1
+  fi
+  if [[ -n "$1" ]]; then
+    choice="run-${1#run-}"
+    [[ -f "$dir/$choice.sh" ]] || { echo "沒有這個模型：$1"; return 1; }
+  else
+    PS3="選擇要啟動的模型（編號）: "
+    select choice in "${scripts[@]}"; do
+      [[ -n "$choice" ]] && break
+    done
+    [[ -n "$choice" ]] || return 1
+  fi
+  systemd-run --user --collect --quiet --unit=strata-server --working-directory="$dir" \
+    --property=StandardOutput=truncate:"$dir/strata-server.out" --property=StandardError=inherit \
+    "$dir/$choice.sh"
+  echo "啟動 $choice 中，約 30-90 秒；用 strata-status 查看"
+}
+strata-stop() {
+  pkill -f "Strata/serve/server.py"; sleep 3; pkill -f "engine/strata --serve"
+  echo "已送出停止指令；用 strata-status 確認"
+}
+strata-status() {
+  curl -s --max-time 3 http://127.0.0.1:8000/health || echo "未執行"
+  echo; nvidia-smi --query-gpu=index,memory.used --format=csv,noheader
+}
