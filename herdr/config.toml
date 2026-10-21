@@ -8,6 +8,6 @@ focus_agent = "prefix+alt+1..9"
 
 [ui.sidebar.agents]
 rows = [
-  ["$idx", "state_icon", "workspace", "tab"],
-  ["agent"],
+  [{ token = "$idx", fg = "#a6adc8" }, "state_icon", "workspace", "agent"],
+  [{ token = "tab", fg = "#a6adc8" }],
 ]
