@@ -35,3 +35,11 @@ gwenview
 
 # 語音輸入
 vocalinux
+
+# 壓縮／解壓縮工具
+ark
+## 格式支援後端
+p7zip
+unrar
+unzip
+zip
