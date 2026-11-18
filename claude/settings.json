@@ -1,18 +1,105 @@
 {
+  "skillListingBudgetFraction": 0.03,
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "model": "opus",
+  "skillOverrides": {
+    "pptx": "user-invocable-only",
+    "docx": "user-invocable-only",
+    "google-workspace": "user-invocable-only",
+    "computer-use": "user-invocable-only",
+    "built-in-browser": "user-invocable-only",
+    "chrome-browser": "user-invocable-only",
+    "morning": "user-invocable-only",
+    "import-memory": "user-invocable-only",
+    "design-shotgun": "name-only",
+    "benchmark": "name-only"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/ace/.claude/skills/gstack/bin/gstack-session-update"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/ace/.claude/skills/gstack/hosts/claude/hooks/timeline-stop-hook",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "sh $HOME/.claude/statusline-command.sh"
   },
+  "enabledPlugins": {
+    "gitkraken-hooks@gitkraken": true
+  },
+  "extraKnownMarketplaces": {
+    "gitkraken": {
+      "source": {
+        "source": "directory",
+        "path": "/home/ace/.claude/plugins/marketplaces/gitkraken"
+      }
+    },
+    "obsidian-skills": {
+      "source": {
+        "source": "github",
+        "repo": "kepano/obsidian-skills"
+      }
+    },
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    },
+    "karpathy-skills": {
+      "source": {
+        "source": "github",
+        "repo": "forrestchang/andrej-karpathy-skills"
+      }
+    }
+  },
   "modelSettings": {
     "claude-sonnet-5": {
       "effortLevel": "high"
+    },
+    "claude-sonnet-5-5": {
+      "effortLevel": "high"
+    },
+    "claude-opus-5": {
+      "effortLevel": "medium"
+    },
+    "claude-sonnet-4-0": {
+      "effortLevel": "medium"
+    },
+    "claude-sonnet-4-6": {
+      "effortLevel": "high"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "medium"
     }
   },
+  "pluginConfigs": {},
   "tui": "fullscreen",
   "voice": {
     "enabled": true,
     "mode": "hold"
   },
   "theme": "dark",
+  "autoCompactEnabled": false,
+  "agentPushNotifEnabled": true,
   "voiceEnabled": true
 }
