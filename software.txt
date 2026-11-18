@@ -15,7 +15,7 @@ chrome
 firefox
 
 ghostty
-herdr
+herdr-app
 gitkraken
 onlyoffice
 
